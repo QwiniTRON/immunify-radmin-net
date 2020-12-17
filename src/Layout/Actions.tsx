@@ -37,7 +37,7 @@ export const ListActions: React.FC<any> = (props) => {
         showFilter,
         displayedFilters,
         filterValues,
-        context: 'button',
+        context: 'button'
       })}
       <CreateButton basePath={basePath} label="создать" />
       <ExportButton

@@ -1,8 +1,11 @@
 import React from 'react';
-import { Admin, EditGuesser, ListGuesser, Resource } from 'react-admin';
+import { Admin, EditGuesser, fetchUtils, ListGuesser, Resource, ShowGuesser } from 'react-admin';
 import PostIcon from '@material-ui/icons/Book';
 import BugReport from '@material-ui/icons/BugReport';
-import simpleRestProvider from 'ra-data-simple-rest';
+import MapIcon from '@material-ui/icons/Map';
+import CardTravelIcon from '@material-ui/icons/CardTravel';
+import jsonServerProvider from 'ra-data-json-server';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 import './App.css';
 
@@ -23,33 +26,77 @@ import { AnswerEdit } from './entities/answers/AnswerEdit';
 import { AnswerCreate } from './entities/answers/AnswerCreate';
 import { ChatList } from './entities/chat/chatList';
 import { ChatShow } from './entities/chat/ChatShow';
+import { ProfesstionList } from './entities/profession/Profession';
+import { RegionList } from './entities/region/Region';
+import { ListQuestionnaire } from './entities/questionnaire/ListQuestionnaire';
+import { EditQuestionnaire } from './entities/questionnaire/EditQuestionnaire';
+import { ShowQuestionnaire } from './entities/questionnaire/ShowQuestionnaire';
+import { CreateQuestionnaire } from './entities/questionnaire/CreateQuestionnaire';
 
+const russianMessages = require('ra-language-russian');
+
+
+const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 
 export default function App() {
   return (
     <Admin
       theme={theme}
-      dataProvider={simpleRestProvider(process.env.REACT_APP_API_URL as string)}
+      dataProvider={jsonServerProvider(process.env.REACT_APP_API_URL as string)}
       catchAll={NotFound}
-      menu={Menu}>
+      menu={Menu}
+      i18nProvider={i18nProvider}
+    >
 
-      <Resource name="vaccine" list={VaccineList} edit={VaccineEdit} icon={PostIcon} options={{
+
+      <Resource name="vaccine" 
+      list={VaccineList} 
+      create={VaccineCreate}
+      edit={VaccineEdit}
+      icon={PostIcon} options={{
         label: 'Вакцины'
-      }} create={VaccineCreate} />
+      }} />
 
-      <Resource name="diseas" list={DiseasList} edit={DiseasEdit} icon={BugReport} options={{
-        label: 'Болезни'
-      }} create={DiseasCreate} />
 
-      <Resource name="questions" list={QuestionList} edit={QuestionEdit} create={QuestionCreate} options={{
+      <Resource name="disease"
+        list={DiseasList}
+        create={DiseasCreate}
+        edit={DiseasEdit}
+        icon={BugReport}
+        options={{
+          label: 'Болезни'
+        }} />
+
+
+      <Resource name="question" options={{
         label: 'Вопросы'
       }} />
 
-      <Resource name="answers" list={AnswerList} edit={AnswerEdit} create={AnswerCreate} />
 
-      <Resource name="chat" list={ChatList} show={ChatShow} options={{
-        label: 'Чат'
+      <Resource name="questionnaire"
+        edit={EditQuestionnaire}
+        list={ListQuestionnaire}
+        show={ShowQuestionnaire}
+        create={CreateQuestionnaire}
+        options={{
+          label: 'опросники'
+        }} />
+
+
+      <Resource name="answer" options={{
+        label: 'ответы'
       }} />
+
+
+
+      {/* <Resource name="answers" /> */}
+      {/* <Resource name="profession" list={ProfesstionList} icon={CardTravelIcon} options={{
+        label: 'профессии'
+      }} /> */}
+
+      {/* <Resource name="region" list={RegionList} icon={MapIcon} options={{
+        label: 'регион'
+      }} /> */}
 
     </Admin>
   );

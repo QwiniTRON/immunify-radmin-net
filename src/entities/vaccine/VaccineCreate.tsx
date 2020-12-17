@@ -1,14 +1,9 @@
 import React from 'react';
 import {
-  ArrayInput,
-  ChipField,
   Create,
   ReferenceArrayInput,
-  ReferenceInput,
   SelectArrayInput,
-  SelectInput,
   SimpleForm,
-  SimpleFormIterator,
   TextInput
 } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
@@ -26,18 +21,12 @@ export const VaccineCreate: React.FC<VaccineCreateProps> = props => (
   <Create {...props} title={<VaccineTitle />}>
     <SimpleForm>
       <TextInput source="name" fullWidth helperText="имя вакцины" label="имя" />
-      <TextInput source="description" multiline fullWidth helperText="описание вакцины" label="описание" />
 
-      <Typography variant="h5">
-        <BugReport/> болезни для данной прививки
-      </Typography>
-      <ArrayInput source="diseases" label="">
-        <SimpleFormIterator addButton={<Button variant="contained" color="secondary">Добавить болезнь</Button>}>
-          <ReferenceInput source="id" reference="diseas" label="болезнь" fullWidth>
-            <SelectInput source="name" helperText="болезнь" resettable />
-          </ReferenceInput>
-        </SimpleFormIterator>
-      </ArrayInput>
+      <Typography>эффективна против</Typography>
+
+      <ReferenceArrayInput source="diseaseIds" reference="disease">
+        <SelectArrayInput optionText="name" />
+      </ReferenceArrayInput>
     </SimpleForm>
   </Create>
 );

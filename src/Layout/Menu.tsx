@@ -8,6 +8,8 @@ import Question from '@material-ui/icons/QuestionAnswer';
 import ChatBubble from '@material-ui/icons/ChatBubble';
 import AddComment from '@material-ui/icons/AddComment';
 import ChatIcon from '@material-ui/icons/Chat';
+import MapIcon from '@material-ui/icons/Map';
+import CardTravelIcon from '@material-ui/icons/CardTravel';
 import {
   useTranslate,
   MenuItemLink
@@ -17,10 +19,8 @@ import SubMenu from './SubMenu';
 
 
 const Menu: React.FC<any> = ({ onMenuClick, logout, dense = false }) => {
-  const [state, setState] = useState<{[p: string]: boolean}>({
-    menuCatalog: true,
-    menuSales: true,
-    menuCustomers: true,
+  const [state, setState] = useState<{ [p: string]: boolean }>({
+    diseas: true
   });
   const translate = useTranslate();
   const isXSmall = useMediaQuery((theme: any) =>
@@ -44,47 +44,49 @@ const Menu: React.FC<any> = ({ onMenuClick, logout, dense = false }) => {
         dense={dense}
         leftIcon={<Book />}
       />
-      <MenuItemLink
-        to={`/chat`}
-        primaryText={"чат"}
-        onClick={onMenuClick}
-        sidebarIsOpen={open}
-        dense={dense}
-        leftIcon={<ChatIcon />}
-      />
-      <MenuItemLink
-        to={`/diseas`}
-        primaryText={"болезни"}
-        onClick={onMenuClick}
-        sidebarIsOpen={open}
-        dense={dense}
-        leftIcon={<BugReport />}
-      />
+
       <SubMenu
-        handleToggle={() => handleToggle('menuSales')}
-        isOpen={state.menuSales}
+        handleToggle={() => handleToggle('diseas')}
+        isOpen={state.diseas}
         sidebarIsOpen={open}
-        name="вопросник"
+        name="болезни"
         dense={dense}
         icon={<Question />}
       >
         <MenuItemLink
-          to={`/questions`}
-          primaryText={"вопросы"}
+          to={`/region`}
+          primaryText={"регион"}
           onClick={onMenuClick}
           sidebarIsOpen={open}
-          leftIcon={<ChatBubble />}
           dense={dense}
+          leftIcon={<MapIcon />}
         />
         <MenuItemLink
-          to={`/answers`}
-          primaryText={"ответы"}
+          to={`/profession`}
+          primaryText={"проф. риски"}
           onClick={onMenuClick}
           sidebarIsOpen={open}
-          leftIcon={<AddComment />}
           dense={dense}
+          leftIcon={<CardTravelIcon />}
+        />
+        <MenuItemLink
+          to={`/disease`}
+          primaryText={"болезни"}
+          onClick={onMenuClick}
+          sidebarIsOpen={open}
+          dense={dense}
+          leftIcon={<BugReport />}
         />
       </SubMenu>
+
+      <MenuItemLink
+        to={`/questionnaire`}
+        primaryText={"опросники"}
+        onClick={onMenuClick}
+        sidebarIsOpen={open}
+        dense={dense}
+        leftIcon={<ChatBubble />}
+      />
       {isXSmall && logout}
     </Box>
   );

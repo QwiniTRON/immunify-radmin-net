@@ -1,6 +1,5 @@
 import React from 'react';
-import { Datagrid, Filter, List, TextField, TextInput,  } from 'react-admin';
-import {ListActions} from '../../Layout';
+import { Datagrid, Filter, List, TextField, TextInput } from 'react-admin';
 
 
 type DiseasListProps = {
@@ -13,11 +12,12 @@ const DiseasFilter: React.FC<any> = (props) => (
   </Filter>
 );
 
-export const DiseasList: React.FC<DiseasListProps> = props => (
-  <List {...props} title="Список болезней" filters={<DiseasFilter/>} actions={<ListActions/>}>
+export const DiseasList: React.FC<DiseasListProps> = props => {
+  return (
+    <List {...props} title="Список болезней" filters={<DiseasFilter />}>
       <Datagrid rowClick="edit">
-          <TextField source="name" label="имя" />
-          <TextField source="description" label="описание" />
+        <TextField source="name" label="имя" />
       </Datagrid>
-  </List>
-);
+    </List>
+  )
+};

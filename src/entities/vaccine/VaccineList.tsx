@@ -39,10 +39,9 @@ const VaccinePanel: React.FC<any> = ({ record }) => {
 
 export const VaccineList: React.FC<VaccineListProps> = props => {
   return (
-    <List {...props} filters={<VaccineFilter />} title="Список вакцин" actions={<ListActions />}>
-      <Datagrid expand={<VaccinePanel />} isRowSelectable={r => false}>
+    <List {...props} filters={<VaccineFilter />} title="Список вакцин">
+      <Datagrid rowClick="edit" isRowSelectable={r => false}>
         <TextField source="name" label="имя" />
-        <EditButton label="редактировать" color="default" />
       </Datagrid>
     </List>
   );
