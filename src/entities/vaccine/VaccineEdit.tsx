@@ -27,7 +27,7 @@ type VaccineEditProps = {
 const VaccineTitle: React.FC<any> = ({ record }) => (<span>{record.name || "Вакцина"}</span>);
 
 export const VaccineEdit: React.FC<VaccineEditProps> = props => {
-  const { ids } = useGetList('disease', { page: 1, perPage: 100 }, { field: 'id', order: 'asc' }, { VaccineId: props.id });
+  const { ids, loading } = useGetList('disease', { page: 1, perPage: 100 }, { field: 'id', order: 'asc' }, { VaccineId: props.id });
 
   return (
     <Edit {...props} title={<VaccineTitle />}>
@@ -36,7 +36,7 @@ export const VaccineEdit: React.FC<VaccineEditProps> = props => {
 
         <Typography>эффективна против</Typography>
 
-        {ids?.length == 0 ?
+        {loading ?
           <Loader /> :
           <ReferenceArrayInput source="diseaseIds" reference="disease" defaultValue={ids}>
             <SelectArrayInput optionText="name" />
