@@ -30,7 +30,7 @@ export const VaccineEdit: React.FC<VaccineEditProps> = props => {
   const { ids, loading } = useGetList('disease', { page: 1, perPage: 100 }, { field: 'id', order: 'asc' }, { VaccineId: props.id });
 
   return (
-    <Edit {...props} title={<VaccineTitle />}>
+    <Edit {...props} title={<VaccineTitle />} undoable={false}>
       <SimpleForm>
         <TextInput source="name" fullWidth helperText="имя вакцины" label="имя" />
 
