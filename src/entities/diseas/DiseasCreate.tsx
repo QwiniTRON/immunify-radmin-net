@@ -13,6 +13,8 @@ export const DiseasCreate: React.FC<DiseasCreateProps> = props => (
     <SimpleForm>
       <TextInput source="name" fullWidth helperText="название болезни" label="название" />
 
+      <TextInput source="detailed" fullWidth helperText="описание болезни" label="описание болезни" multiline rows={5} />
+
       <ReferenceArrayInput source="vaccineIds" reference="vaccine">
         <SelectArrayInput optionText="name" />
       </ReferenceArrayInput>

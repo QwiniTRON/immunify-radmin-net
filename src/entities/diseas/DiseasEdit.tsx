@@ -13,13 +13,16 @@ export const DiseasEdit: React.FC<DiseasEditProps> = props => {
   const { ids, loading } = useGetList('vaccine', { page: 1, perPage: 100 }, { field: 'id', order: 'asc' }, { DiseaseId: props.id });
 
   return (
-  <Edit {...props} title={<DiseasTitle />}  undoable={false}>
-    <SimpleForm>
-      <TextInput source="name" label="название" fullWidth helperText="название для болезни" />
+    <Edit {...props} title={<DiseasTitle />} undoable={false}>
+      <SimpleForm>
+        <TextInput source="name" label="название" fullWidth helperText="название для болезни" />
 
-      {loading? <Loader /> : <ReferenceArrayInput source="vaccineIds" reference="vaccine" defaultValue={ids}>
-        <SelectArrayInput optionText="name" />
-      </ReferenceArrayInput>}
-    </SimpleForm>
-  </Edit>
-)};
+        <TextInput source="detailed" fullWidth helperText="описание болезни" label="описание болезни" multiline rows={5} />
+
+        {loading ? <Loader /> : <ReferenceArrayInput source="vaccineIds" reference="vaccine" defaultValue={ids}>
+          <SelectArrayInput optionText="name" />
+        </ReferenceArrayInput>}
+      </SimpleForm>
+    </Edit>
+  )
+};
